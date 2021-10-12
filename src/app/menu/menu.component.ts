@@ -51,6 +51,9 @@ const DISHES: Dish[] = [
     description: 'A unique combination'
   }
 ]
+
+
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',

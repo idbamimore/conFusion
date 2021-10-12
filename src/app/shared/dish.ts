@@ -1,3 +1,5 @@
+import { Comment } from './comment';
+
 export class Dish {
     id: string | undefined;
     name: string | undefined;
