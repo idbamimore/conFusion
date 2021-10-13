@@ -1,56 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dish } from '../shared/dish';
+import { DISHES } from '../shared/dishes'
 
-
-const DISHES: Dish[] = [
-  {
-    id: '1',
-    name: 'Software Development',
-    image: '/assets/images/dice 1.png',
-    category: 'mains',
-    featured: true,
-    label: 'Hot',
-    price: '77.9',
-    //tslint:disable-next-line:max-line-length
-    description: 'A unique combination'
-  },
-    
-  {
-    id: '2',
-    name: 'Web Development',
-    image: '/assets/images/dice 2.png',
-    category: 'mains',
-    featured: true,
-    label: 'Hot',
-    price: '78.9',
-    //tslint:disable-next-line:max-line-length
-    description: 'A unique combination'
-  },
-
-  {
-    id: '3',
-    name: 'Data Science',
-    image: '/assets/images/dice 2.png',
-    category: 'mains',
-    featured: true,
-    label: 'Hot',
-    price: '78.9',
-    //tslint:disable-next-line:max-line-length
-    description: 'A unique combination'
-  },
-
-  {
-    id: '4',
-    name: 'Artificial Intelligence',
-    image: '/assets/images/dice 2.png',
-    category: 'mains',
-    featured: true,
-    label: 'Hot',
-    price: '78.9',
-    //tslint:disable-next-line:max-line-length
-    description: 'A unique combination'
-  }
-]
 
 
 
@@ -63,11 +14,15 @@ export class MenuComponent implements OnInit {
 
   dishes: Dish[] = DISHES;
 
-  selectedDish: Dish = DISHES[0];
+  selectedDish: Dish | undefined;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSelect(dish: Dish) {
+    this.selectedDish = dish;
   }
 
 }
