@@ -1,0 +1,26 @@
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #000000;
+
+@mixin zero-margin($pad-up-down, $pad-left-right) {
+    margin: 0px auto;
+    padding: $pad-up-down $pad-left-right;
+}
+
+.jumbotron {
+    @include zero-margin(20px, 0px);
+    background: $background-light;
+    color: floralwhite;
+    min-height: 150px;
+    padding: 70px 30px 70px 30px;
+    background: #950101;
+    border-bottom-left-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    height: 300px;
+}
+
+.yyy {
+    background-color: #000000;
+    position: relative;
+}
