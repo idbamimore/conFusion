@@ -2,6 +2,7 @@ $lt-gray: #ddd;
 $background-dark: #512DA8;
 $background-light: #9575CD;
 $background-pale: #000000;
+$background-moredark: #000000;
 
 @mixin zero-margin($pad-up-down, $pad-left-right) {
     margin: 0px auto;
@@ -23,4 +24,8 @@ $background-pale: #000000;
 .yyy {
     background-color: #000000;
     position: relative;
+}
+
+.active {
+    background: #950101;
 }
