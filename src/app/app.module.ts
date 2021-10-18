@@ -48,7 +48,7 @@ import { ContactComponent } from './contact/contact.component';
   ],
   providers: [
     DishService,
-    PromotionService
+    PromotionService,
   ],
   bootstrap: [AppComponent]
 })
