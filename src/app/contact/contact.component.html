@@ -33,24 +33,28 @@
 
     <div fxFlex fxFlexOffset = "20px" class = "form-size">
         <h3> Please Send Us your Feedback </h3>
-        <form novalidate [formGroup] = "feedbackForm" (ngSubmit) = "onSubmit()">
+        <form novalidate [formGroup] = "feedbackForm" #fform = "ngForm" (ngSubmit) = "onSubmit()">
             <p>
                 <mat-form-field class = "half-width">
                     <input matInput formControlName = "firstname" placeholder = "First Name" type = "text" required>
+                    <mat-error *ngIf = "feedbackForm.get('firstname')?.hasError('required') && feedbackForm.get('firstname')?.touched"> First Name is required </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class = "half-width">
                     <input matInput formControlName = "lastname" placeholder = "Last Name" type = "text" required>
+                    <mat-error *ngIf = "feedbackForm.get('lastname')?.hasError('required') && feedbackForm.get('lastname')?.touched"> Last Name is required </mat-error>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field class = "half-width">
                     <input matInput formControlName = "telnum" placeholder = "Phone Number" type = "tel" required>
+                    <mat-error *ngIf = "feedbackForm.get('telnum')?.hasError('required') && feedbackForm.get('telnum')?.touched"> A valid phone number is required </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class = "half-width">
                     <input matInput formControlName = "email" placeholder = "Email" type = "email" required>
+                    <mat-error *ngIf = "feedbackForm.get('email')?.hasError('required') && feedbackForm.get('email')?.touched"> A valid email is required </mat-error>
                 </mat-form-field>
             </p>
 
@@ -75,7 +79,7 @@
                 </mat-form-field>
             </p>
 
-            <button type = "submit" mat-button class = "zzz"> Submit </button>
+            <button type = "submit" mat-button class = "zzz" [disabled] = "feedbackForm.invalid"> Submit </button>
 
         </form>
     </div>
