@@ -11,14 +11,23 @@ export class DishService {
 
   // method for getting dish
   getDishes(): Promise<Dish[]> {
-    return Promise.resolve(DISHES);
+    return new Promise(resolve => {
+      // Simulate server latency with 2s delay
+      setTimeout(() => resolve(DISHES), 10000)
+    });
   }
 
   getDish(id: string): Promise<Dish> {
-    return Promise.resolve(DISHES.filter((dish) => (dish.id === id))[0]);
-  }
+    return new Promise(resolve => {
+      // Simulate server latency with 2s delay
+      setTimeout(() => resolve(DISHES.filter((dish) => (dish.id === id))[0]), 10000);
+  });
+}
 
   getFeaturedDish(): Promise<Dish> {
-    return Promise.resolve(DISHES.filter((dish) => dish.featured)[0]);
-  }
+    return new Promise(resolve => {
+      // Simulate server latency with 2s delay
+      setTimeout(() => resolve(DISHES.filter((dish) => dish.featured)[0]), 10000);
+  });
+}
 }
