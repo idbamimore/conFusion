@@ -38,13 +38,14 @@ export class DishService {
     .pipe(catchError(error => error));
   }
 
-  // putDish(dish: Dish): Observable<Dish> {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json'
-  //     })
-  //   };
+  putDish(dish: Dish): Observable<Dish> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
 
-  //   return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
-  // }
+    return this.http.put<Dish>(baseURL + 'dishes/' + dish.id, dish, httpOptions)
+    .pipe(catchError(this.processHTTPMsgService.handleError))
+  }
 }

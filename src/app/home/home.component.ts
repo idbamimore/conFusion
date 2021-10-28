@@ -15,10 +15,10 @@ import { LeaderService } from '../services/leader.service';
 })
 export class HomeComponent implements OnInit {
 
-  dish: Dish | undefined;
-  dishErrMess: string | undefined;
-  promotion: Promotion | undefined;
-  leader: Leader | undefined;
+  dish: Dish | any;
+  dishErrMess: string | any;
+  promotion: Promotion | any;
+  leader: Leader | any;
 
   constructor(private dishService: DishService,
     private promotionService: PromotionService,

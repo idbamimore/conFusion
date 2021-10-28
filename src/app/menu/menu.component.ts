@@ -12,8 +12,8 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
 
-  dishes: Dish[] | undefined;
-  errMess: string | undefined;
+  dishes: Dish[] | any;
+  errMess: string | any;
 
   // selectedDish: Dish | undefined;
 

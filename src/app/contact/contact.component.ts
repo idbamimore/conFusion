@@ -10,7 +10,7 @@ import { Feedback, ContactType } from '../shared/feedback'
 export class ContactComponent implements OnInit {
 
   feedbackForm!: FormGroup;
-  feedback: Feedback | undefined;
+  feedback: Feedback | any;
   contactType = ContactType;
   @ViewChild('fform')
   feedbackFormDirective!: NgForm; //allows you to get access to the template form and completely reset it
@@ -80,7 +80,7 @@ export class ContactComponent implements OnInit {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
+        if (control && control.dirty && control.valid) {
           const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
