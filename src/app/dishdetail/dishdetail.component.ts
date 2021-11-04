@@ -70,13 +70,14 @@ export class DishdetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private fb: FormBuilder,
-    @Inject('BaseURL') public BaseURL: any) {
-      this.createForm();
-    }
+    @Inject('BaseURL') public BaseURL: any) { }
 
   ngOnInit() {
+
+    this.createForm();
+
     this.dishService.getDishIds()
-    .subscribe((dishIds) => this.dishIds = dishIds);
+    .subscribe(dishIds => this.dishIds = dishIds);
     this.route.params
     .pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishService.getDish(params['id']); }))
     .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id!); this.visibility = 'shown'; },
@@ -110,6 +111,7 @@ export class DishdetailComponent implements OnInit {
 
 
   onSubmit() {
+
     this.comment = this.commentForm.value;
     this.comment.date = new Date().toISOString();
     this.dishcopy.comments.push(this.comment);

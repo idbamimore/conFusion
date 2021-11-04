@@ -34,7 +34,7 @@
             <h3> {{promotion.name | uppercase}} </h3>
         </mat-card-title>
     </mat-card-header>
-    <img mat-card-image height = 600px src = {{promotion.image}} alt = {{promotion.name}}>
+    <img mat-card-image height = 600px src = "{{BaseURL + promotion.image}}" alt = {{promotion.name}}>
     <mat-card-content>
         <p>
             {{promotion.description}}
@@ -54,7 +54,7 @@
             <h3> {{leader.name | uppercase}} </h3>
         </mat-card-title>
     </mat-card-header>
-    <img mat-card-image height = 600px src = {{leader.image}} alt = {{leader.name}}>
+    <img mat-card-image height = 600px src = "{{BaseURL + leader.image}}" alt = {{leader.name}}>
     <p> {{leader.designation}} </p>
     <p> {{leader.description}} </p>
 </mat-card>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
+import { FeedbackService } from '../services/feedback.service';
 
 import { flyInOut } from '../animations/app.animation';
 
@@ -17,13 +18,16 @@ import { flyInOut } from '../animations/app.animation';
   ]
 })
 export class ContactComponent implements OnInit {
+  [x: string]: any;
 
   feedbackForm!: FormGroup;
   feedback: Feedback | any;
   contactType = ContactType;
-  @ViewChild('fform')
-  feedbackFormDirective!: NgForm; //allows you to get access to the template form and completely reset it
+  submitted: any = null; // adjusted; added type any
+  showForm = true;
+  @ViewChild('fform') feedbackFormDirective!: NgForm; //allows you to get access to the template form and completely reset it
  //allows you to get access to the template form and completely reset it
+
 
 
   formErrors: any = {
@@ -57,11 +61,12 @@ export class ContactComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) {
-    this.createForm();
+  constructor(private fb: FormBuilder,
+    private feedbackservice: FeedbackService) {
   }
 
   ngOnInit(): void {
+    this.createForm()
   }
 
   createForm() {
@@ -104,6 +109,14 @@ export class ContactComponent implements OnInit {
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.showForm = false;
+    this.feedbackservice.submitFeedback(this.feedback)
+      .subscribe((feedback: any) => {
+        this.submitted = feedback;
+        this.feedback = null;
+        setTimeout(() => { this.submitted = null; this.showForm = true; }, 5000);
+      },
+        (      error: { status: any; message: any; }) => console.log(error.status, error.message));
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
