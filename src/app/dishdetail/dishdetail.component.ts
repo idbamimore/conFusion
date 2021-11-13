@@ -12,10 +12,6 @@ import { Comment } from '../shared/comment';
 
 import { visibility, flyInOut } from '../animations/app.animation';
 
-
-
-
-
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
@@ -23,19 +19,11 @@ import { visibility, flyInOut } from '../animations/app.animation';
 
   host: {
     '[@flyInOut]': 'true',
-    'style': 'display: block;'
+    style: 'display: block;',
   },
-  animations: [
-  flyInOut(),
-  visibility()
-  ]
-  
+  animations: [flyInOut(), visibility()],
 })
-
-
 export class DishdetailComponent implements OnInit {
-
-
   dish: Dish | any;
   errMess: string | any;
   dishIds: string[] | any;
@@ -49,45 +37,61 @@ export class DishdetailComponent implements OnInit {
   visibility = 'shown';
 
   formErrors: any = {
-    'author': '',
-    'comment': ''
+    author: '',
+    comment: '',
   };
 
   validationMessages: any = {
-    'author': {
-      'required': 'Author Name is required!',
-      'minlength': 'Author Name must be at least 2 characters long!',
-      'maxlength': 'Author Name cannot be more than 20 characters long!'
+    author: {
+      required: 'Author Name is required!',
+      minlength: 'Author Name must be at least 2 characters long!',
+      maxlength: 'Author Name cannot be more than 20 characters long!',
     },
 
-    'comment': {
-      'required': 'Comment is required!',
-      'minlength': 'Comment must be at least 1 character long!'
-    }
-  }
+    comment: {
+      required: 'Comment is required!',
+      minlength: 'Comment must be at least 1 character long!',
+    },
+  };
 
-  constructor(private dishService: DishService,
+  constructor(
+    private dishService: DishService,
     private route: ActivatedRoute,
     private location: Location,
     private fb: FormBuilder,
-    @Inject('BaseURL') public BaseURL: any) { }
+    @Inject('BaseURL') public BaseURL: any
+  ) {}
 
   ngOnInit() {
-
     this.createForm();
 
-    this.dishService.getDishIds()
-    .subscribe(dishIds => this.dishIds = dishIds);
+    this.dishService
+      .getDishIds()
+      .subscribe((dishIds) => (this.dishIds = dishIds));
     this.route.params
-    .pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishService.getDish(params['id']); }))
-    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id!); this.visibility = 'shown'; },
-      errmess => this.errMess = <any>errmess);
+      .pipe(
+        switchMap((params: Params) => {
+          this.visibility = 'hidden';
+          return this.dishService.getDish(params['id']);
+        })
+      )
+      .subscribe(
+        (dish) => {
+          this.dish = dish;
+          this.dishcopy = dish;
+          this.setPrevNext(dish.id);
+          this.visibility = 'shown';
+        },
+        (errmess) => (this.errMess = <any>errmess)
+      );
   }
 
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);
-    this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length]
-    this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length]
+    this.prev =
+      this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+    this.next =
+      this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
 
   goBack(): void {
@@ -96,43 +100,54 @@ export class DishdetailComponent implements OnInit {
 
   createForm() {
     this.commentForm = this.fb.group({
-      author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      author: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(20),
+        ],
+      ],
       comment: ['', [Validators.required, Validators.minLength(1)]],
-      rating: 5
+      rating: 5,
     });
 
-    this.commentForm.valueChanges
-    .subscribe((data: any) => this.onValueChanged(data));
+    this.commentForm.valueChanges.subscribe((data: any) =>
+      this.onValueChanged(data)
+    );
 
     this.onValueChanged(); //set, reset validation messages
   }
 
-
-
-
-  onSubmit() {
-
+  onSubmit = () => {
     this.comment = this.commentForm.value;
     this.comment.date = new Date().toISOString();
-    this.dishcopy.comments.push(this.comment);
-    this.dishService.putDish(this.dishcopy)
-      .subscribe(dish => {
-        this.dish = dish; this.dishcopy = dish;
+    this.dishcopy.comments
+      ? this.dishcopy.comments.push(this.comment)
+      : this.dishcopy.comments = [this.comment];
+    this.dishService.putDish(this.dishcopy).subscribe(
+      (dish) => {
+        this.dish = dish;
+        this.dishcopy = dish;
       },
-      errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess; })
+      (errmess) => {
+        this.dish = null;
+        this.dishcopy = null;
+        this.errMess = <any>errmess;
+      }
+    );
     this.commentFormDirective.resetForm();
     this.commentForm.reset({
       author: '',
       comment: '',
-      rating: 5
-    })
+      rating: 5,
+    });
   }
 
-
-
-  
   onValueChanged(data?: any) {
-    if (!this.commentForm) { return; }
+    if (!this.commentForm) {
+      return;
+    }
     const form = this.commentForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
@@ -150,5 +165,4 @@ export class DishdetailComponent implements OnInit {
       }
     }
   }
-
 }
