@@ -43,6 +43,7 @@ import { LoginComponent } from './login/login.component';
 
 import { HttpClientModule } from '@angular/common/http'
 import { baseURL } from './shared/baseurl';
+import { OfficeAddressComponent } from './contact/office-address/office-address.component';
 // import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
@@ -56,6 +57,7 @@ import { baseURL } from './shared/baseurl';
     AboutComponent,
     ContactComponent,
     LoginComponent,
+    OfficeAddressComponent,
     // HighlightDirective
   ],
   imports: [
